@@ -10,7 +10,11 @@
   "scripts": {
     "dev": "pnpm --filter @luna/os dev",
     "dev:web": "pnpm --filter @luna/web-shell dev",
-    "build": "pnpm --filter @luna/open-ui build && pnpm --filter @luna/hub build && pnpm --filter @luna/os build",
-    "typecheck": "pnpm -r --if-present typecheck"
+    "build": "pnpm --filter @luna/os build && pnpm --filter @luna/web-shell build",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "vitest": "^3.2.4"
   }
 }

@@ -4,11 +4,11 @@ import { HostApp } from "@luna/host";
 
 const root = document.getElementById("root");
 if (root === null) {
-  throw new Error("Luna OS root is missing");
+  throw new Error("SubTerra Central root is missing");
 }
 
 createRoot(root).render(
   <StrictMode>
-    <HostApp shellId="luna-os" />
+    <HostApp shellId="web-shell" />
   </StrictMode>,
 );

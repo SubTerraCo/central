@@ -1,13 +1,30 @@
+import type { ReactNode } from "react";
 import type { InstalledPackage } from "@luna/hub";
-import { tokens, type ShellSection } from "./tokens";
+import { tokens } from "./tokens";
 
 export type LunaShellProps = {
-  section: ShellSection;
+  productTitle: string;
+  intro: ReactNode;
+  section: string;
   installed: readonly InstalledPackage[];
-  onSection: (section: ShellSection) => void;
+  panels: Readonly<Record<string, ReactNode>>;
+  bridgeOn: boolean;
+  marketplace: ReactNode;
+  onSection: (section: string) => void;
+  onBridge: (on: boolean) => void;
 };
 
-export function LunaShell({ section, installed, onSection }: LunaShellProps) {
+export function LunaShell({
+  productTitle,
+  intro,
+  section,
+  installed,
+  panels,
+  bridgeOn,
+  marketplace,
+  onSection,
+  onBridge,
+}: LunaShellProps) {
   return (
     <div
       style={{
@@ -21,63 +38,73 @@ export function LunaShell({ section, installed, onSection }: LunaShellProps) {
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "1rem",
+          gap: "0.75rem",
+          flexWrap: "wrap",
           padding: "0.75rem 1.25rem",
           background: tokens.surfaceContainer,
           borderBottom: `1px solid ${tokens.outline}`,
         }}
       >
-        <strong style={{ color: tokens.primary }}>Luna OS</strong>
-        <nav style={{ display: "flex", gap: "0.5rem" }}>
+        <strong style={{ color: tokens.primary }}>{productTitle}</strong>
+        <ShellTab label="Home" selected={section === "home"} onPress={() => onSection("home")} />
+        <ShellTab
+          label="Marketplace"
+          selected={section === "marketplace"}
+          onPress={() => onSection("marketplace")}
+        />
+        {installed.map((item) => (
           <ShellTab
-            label="Home"
-            selected={section === "home"}
-            onPress={() => onSection("home")}
+            key={item.code}
+            label={item.name}
+            selected={section === item.code}
+            onPress={() => onSection(item.code)}
           />
-          <ShellTab
-            label="Marketplace"
-            selected={section === "marketplace"}
-            onPress={() => onSection("marketplace")}
-          />
-        </nav>
+        ))}
       </header>
       <main style={{ padding: "1.5rem" }}>
-        {section === "home" ? <Home installed={installed} /> : <Marketplace installed={installed} />}
+        {section === "home" ? (
+          <Home intro={intro} installed={installed} bridgeOn={bridgeOn} onBridge={onBridge} />
+        ) : null}
+        {section === "marketplace" ? marketplace : null}
+        {section !== "home" && section !== "marketplace" ? panels[section] ?? null : null}
       </main>
     </div>
   );
 }
 
-function Home({ installed }: { installed: readonly InstalledPackage[] }) {
+function Home({
+  intro,
+  installed,
+  bridgeOn,
+  onBridge,
+}: {
+  intro: ReactNode;
+  installed: readonly InstalledPackage[];
+  bridgeOn: boolean;
+  onBridge: (on: boolean) => void;
+}) {
   return (
-    <section>
-      <h1 style={{ fontSize: "1.75rem", marginTop: 0 }}>Home</h1>
+    <section style={{ display: "grid", gap: "0.75rem", maxWidth: "40rem" }}>
+      <h1 style={{ fontSize: "1.75rem", margin: 0 }}>Home</h1>
+      <div>{intro}</div>
       <p style={{ color: tokens.onSurfaceVariant }}>
         {installed.length === 0
           ? "No packages installed. The shell runs on its own."
           : `${installed.length} packages installed.`}
       </p>
-    </section>
-  );
-}
-
-function Marketplace({ installed }: { installed: readonly InstalledPackage[] }) {
-  return (
-    <section>
-      <h1 style={{ fontSize: "1.75rem", marginTop: 0 }}>Marketplace</h1>
-      {installed.length === 0 ? (
-        <p data-testid="marketplace-empty" style={{ color: tokens.onSurfaceVariant }}>
-          Nothing is installed. Turn a package on when you want it. Each one runs without the others.
-        </p>
-      ) : (
-        <ul>
-          {installed.map((item) => (
-            <li key={item.code}>
-              {item.name} ({item.code})
-            </li>
-          ))}
-        </ul>
-      )}
+      <label>
+        <input
+          type="checkbox"
+          checked={bridgeOn}
+          onChange={(event) => onBridge(event.target.checked)}
+        />{" "}
+        Link finance and time with the other shell
+      </label>
+      <p style={{ color: tokens.onSurfaceVariant }}>
+        {bridgeOn
+          ? "Open Books, Open Bill, and Open Day are shared. Everything else stays on this shell."
+          : "The bridge is off. This shell keeps its own records."}
+      </p>
     </section>
   );
 }

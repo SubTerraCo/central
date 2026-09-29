@@ -1,0 +1,39 @@
+{
+  "name": "@luna/host",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@luna/agent": "workspace:*",
+    "@luna/banking": "workspace:*",
+    "@luna/community": "workspace:*",
+    "@luna/forum": "workspace:*",
+    "@luna/home-assistant": "workspace:*",
+    "@luna/hub": "workspace:*",
+    "@luna/media": "workspace:*",
+    "@luna/open-bill": "workspace:*",
+    "@luna/open-books": "workspace:*",
+    "@luna/open-day": "workspace:*",
+    "@luna/open-gig": "workspace:*",
+    "@luna/open-sort": "workspace:*",
+    "@luna/open-ui": "workspace:*",
+    "@luna/subtoken": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "typescript": "^5.9.2"
+  }
+}
