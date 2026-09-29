@@ -1,0 +1,16 @@
+{
+  "name": "luna",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Luna OS monorepo. Standalone packages inside two shells.",
+  "packageManager": "pnpm@9.15.9",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @luna/os dev",
+    "dev:web": "pnpm --filter @luna/web-shell dev",
+    "build": "pnpm --filter @luna/open-ui build && pnpm --filter @luna/hub build && pnpm --filter @luna/os build",
+    "typecheck": "pnpm -r --if-present typecheck"
+  }
+}

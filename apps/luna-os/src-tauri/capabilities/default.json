@@ -1,0 +1,6 @@
+{
+  "identifier": "default",
+  "description": "Default Luna OS window",
+  "windows": ["main"],
+  "permissions": ["core:default"]
+}
