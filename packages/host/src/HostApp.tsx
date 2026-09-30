@@ -8,7 +8,7 @@ import {
   type InstalledPackage,
   type ShellId,
 } from "@luna/hub";
-import { LunaShell, tokens } from "@luna/open-ui";
+import { LunaShell, spacePx, tokens, typeStyle } from "@luna/open-ui";
 import { catalogFor, type CatalogEntry } from "./catalog";
 
 function productTitle(shellId: ShellId): string {
@@ -141,9 +141,11 @@ function Marketplace({
   onRemove: (code: string) => void;
 }) {
   return (
-    <section style={{ display: "grid", gap: "0.75rem", maxWidth: "40rem" }}>
-      <h1 style={{ margin: 0, fontSize: "1.75rem" }}>Marketplace</h1>
-      <p style={{ color: tokens.onSurfaceVariant }}>Each package installs on its own. Removing one leaves the others.</p>
+    <section style={{ display: "grid", gap: spacePx(3), maxWidth: "40rem" }}>
+      <h1 style={{ ...typeStyle("headlineMedium"), margin: 0 }}>Marketplace</h1>
+      <p style={{ ...typeStyle("bodyMedium"), color: tokens.onSurfaceVariant }}>
+        Each package installs on its own. Removing one leaves the others.
+      </p>
       {entries.map((entry) => {
         const on = installedCodes.includes(entry.code);
         return (
@@ -151,10 +153,10 @@ function Marketplace({
             key={entry.code}
             style={{
               border: `1px solid ${tokens.outline}`,
-              borderRadius: "12px",
-              padding: "0.75rem 1rem",
+              borderRadius: spacePx(3),
+              padding: `${spacePx(3)} ${spacePx(4)}`,
               display: "grid",
-              gap: "0.35rem",
+              gap: spacePx(1),
             }}
           >
             <strong>

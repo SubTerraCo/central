@@ -13,7 +13,7 @@ Copy this file to the monorepo root at Phase 1. Until that repo exists, this cop
 - Local hub store: SQLite via SQLCipher, hub documents synced with Yjs.
 - Finance store: Actual's own SQLite CRDT inside `packages/open-books` (`OB`), via `@actual-app/api`. Do not wrap Actual's file in a second CRDT. Invoicing is `packages/open-bill` (`BI`).
 - PKM lives in a dedicated Anytype workspace. It is not a package in this monorepo. The shell hub does not require it.
-- Material 3 tokens in `packages/open-ui`, generated with `@material/material-color-utilities`, applied through the Tailwind preset in `tooling/config-tailwind`. Seed color `#e8a54b`. No arbitrary Tailwind values. No hardcoded hex or RGB in `.tsx`.
+- Material 3 tokens in `packages/open-ui`, generated with `@material/material-color-utilities`, applied through the Tailwind preset in `tooling/config-tailwind`. Powerline seeds: primary purple `#400080`, secondary pink `#ED1CAD`, tertiary light blue `#1CEDC5`, accent teal `#008080`. Interim Material 3 type scale (Roboto, pending a later font pick) and a 4dp spacing grid. No arbitrary Tailwind values. No hardcoded hex or RGB in `.tsx`.
 
 ## Apps and packages
 
