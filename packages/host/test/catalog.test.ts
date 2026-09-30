@@ -13,7 +13,7 @@ describe("catalog", () => {
     expect(web).toEqual(["OD", "OB", "BI", "TK", "OG", "CH", "FM"]);
   });
 
-  it("offers the local packages on Luna OS", () => {
+  it("offers the local packages on SubTerra Metro", () => {
     const local = catalogFor("luna-os").map((entry) => entry.code);
     expect(local).toContain("OS");
     expect(local).toContain("LU");

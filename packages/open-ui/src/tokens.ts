@@ -1,5 +1,5 @@
 /**
- * Luna / SubTerra design tokens (Powerline).
+ * SubTerra Metro / SubTerra Central design tokens (Powerline).
  *
  * Palette — four brand seeds mapped to Material 3 roles via
  * `@material/material-color-utilities` (`DynamicScheme`, `Variant.TONAL_SPOT`):

@@ -1,8 +1,8 @@
 # Luna
 
-Luna OS monorepo. Two shells share one marketplace. Packages do not import each other.
+SubTerra Metro monorepo. Two shells share one marketplace. Packages do not import each other.
 
-- `apps/luna-os` is the Tauri shell for this machine (Windows, macOS, Android, iOS, and an Arch AppImage for Omarchy).
+- `apps/subterra-metro` is the Tauri shell for this machine (Windows, macOS, Android, iOS, and an Arch AppImage for Omarchy). Dewey code `SM`.
 - `apps/web-shell` is SubTerra Central, the gig and event hub.
 - `packages/host` is the only place that composes packages.
 - `packages/hub` stores records. The finance and time bridge is off until you turn it on. It copies Open Books, Open Bill, and Open Day.
@@ -10,17 +10,17 @@ Luna OS monorepo. Two shells share one marketplace. Packages do not import each 
 | Code | Package | Where it installs |
 | --- | --- | --- |
 | OD | Open Day | Both shells |
-| OS | Open Sort | Luna OS |
+| OS | Open Sort | SubTerra Metro |
 | OB | Open Books | Both shells |
 | BI | Open Bill | Both shells |
-| LU | Luna | Luna OS |
+| LU | Luna | SubTerra Metro |
 | TK | Subtoken | Both shells |
 | OG | Open Gig | Both shells |
 | CH | Community | Both shells |
 | FM | Forum | Both shells |
-| HA | Home Assistant | Luna OS |
-| MA | Media | Luna OS |
-| BS | Banking | Luna OS |
+| HA | Home Assistant | SubTerra Metro |
+| MA | Media | SubTerra Metro |
+| BS | Banking | SubTerra Metro |
 
 Open Day carries the Blocks columns and the Festy Blocks crew draft, coverage check, and time clock. A published schedule is read-only. Open Sort follows the Mailbot rule shape and never deletes mail. Open Gig is free for a solo freelancer and bills a crew manager of 5 or more. Subtoken refuses a tag UID that has no SUN response.
 
@@ -33,7 +33,7 @@ pnpm install
 pnpm dev
 ```
 
-Luna OS is at http://localhost:1420. SubTerra Central is:
+SubTerra Metro is at http://localhost:1420. SubTerra Central is:
 
 ```bash
 pnpm dev:web

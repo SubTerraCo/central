@@ -7,7 +7,7 @@ Copy this file to the monorepo root at Phase 1. Until that repo exists, this cop
 ## Stack
 
 - TypeScript strict mode for UI, domain logic, and shared types. React 19. Vite.
-- Two shells only: `apps/luna-os` (Tauri v2 for Windows, macOS, Android, iOS, and Arch Linux) and `apps/web-shell` (offline-first PWA).
+- Two shells only: `apps/subterra-metro` (Tauri v2 for Windows, macOS, Android, iOS, and Arch Linux; Dewey `SM`) and `apps/web-shell` (offline-first PWA).
 - Arch builds install on Omarchy. That machine is the dedicated local AI host: Ollama runs there, and `packages/luna` calls it on localhost. Ship an AppImage and a PKGBUILD.
 - Rust only inside Tauri bindings: filesystem, local IPC, NFC hardware, DaVinci socket.
 - Local hub store: SQLite via SQLCipher, hub documents synced with Yjs.
@@ -19,7 +19,7 @@ Copy this file to the monorepo root at Phase 1. Until that repo exists, this cop
 
 ```
 apps/
-  luna-os/               # LO — Tauri command center, including Arch / Omarchy
+  subterra-metro/        # SM — Tauri command center, including Arch / Omarchy
   web-shell/             # PWA runtime
   subterra-central/      # SC — gigs, events, NFC event page
   open-gig/              # OG — profile, listing, rate, date request
@@ -87,9 +87,9 @@ Optional facts another package might have written are read from the hub only aft
 
 PKM stays in a dedicated Anytype workspace. It is not a package here, and Open Axiom is cut. The shell hub is the store for installed packages. Other people are not required to run Anytype.
 
-The same package can be installed in Luna OS, in the SubTerra Central PWA, or in both. Each shell has its own hub. Installing it in one shell does not install it in the other.
+The same package can be installed in SubTerra Metro, in the SubTerra Central PWA, or in both. Each shell has its own hub. Installing it in one shell does not install it in the other.
 
-A person who uses both shells may turn on a data bridge. It is off by default. The bridge copies only Open Books, Open Bill, and Open Day records that the person marks. Mail, banking, and home automation stay on Luna OS. Central's public pages never receive the unbridged Luna hub.
+A person who uses both shells may turn on a data bridge. It is off by default. The bridge copies only Open Books, Open Bill, and Open Day records that the person marks. Mail, banking, and home automation stay on SubTerra Metro. Central's public pages never receive the unbridged SubTerra Metro hub.
 
 ## SubTerra Central access
 
@@ -101,11 +101,11 @@ A one-time charge upgrades that profile to Artist, Venue, or Vendor. The charge 
 
 Booking listings are free for a single freelancer. A crew manager with 5 or more members pays the booking fee. The fee is for managing that crew, not for looking for work alone.
 
-| Package | Luna OS (personal and white-label) | SubTerra Central (public events) | Sells as |
+| Package | SubTerra Metro (personal and white-label) | SubTerra Central (public events) | Sells as |
 |---------|--------------------------------------|----------------------------------|----------|
 | Open Books `OB` | Yes | Only through the owner's bridge | Back-office seat. Bridge is optional |
 | Open Bill `BI` | Yes | Only through the owner's bridge | Back-office seat. Bridge is optional |
-| Open Day `OD` | Yes. Personal tasks, plus Festy crew drafting | Public schedule only, when granted | Seat. Drafting stays on Luna OS |
+| Open Day `OD` | Yes. Personal tasks, plus Festy crew drafting | Public schedule only, when granted | Seat. Drafting stays on SubTerra Metro |
 | Open Sort `OS` | Yes | No | Back-office seat |
 | Banking `BS` | Yes | No | Back-office seat |
 | Home Assistant `HA` | Yes | No | Back-office seat |
@@ -118,7 +118,7 @@ Booking listings are free for a single freelancer. A crew manager with 5 or more
 
 UI is not a marketplace item. It ships inside both shells.
 
-Monetization is the BSL seat key and PoweredUpLabs hosting for Luna OS, ticket prices on SubTerra Central, a one-time Artist, Venue, or Vendor profile upgrade, and the Open Gig fee for crew managers of 5 or more. A solo freelancer does not pay that fee. A package that is not installed is not billed and is not loaded.
+Monetization is the BSL seat key and PoweredUpLabs hosting for SubTerra Metro, ticket prices on SubTerra Central, a one-time Artist, Venue, or Vendor profile upgrade, and the Open Gig fee for crew managers of 5 or more. A solo freelancer does not pay that fee. A package that is not installed is not billed and is not loaded.
 
 ## Phases
 
@@ -126,7 +126,7 @@ Monetization is the BSL seat key and PoweredUpLabs hosting for Luna OS, ticket p
 2. Shell hub on SQLite (`better-sqlite3` in Tauri, SQL.js or WASM on the web) and Yjs. `budget` around `@actual-app/api`. `billbot` stays a separate invoicing package. `anytype` is an optional mirror of the hub, not the store packages require.
 3. `luna` with the provider interface and a tool registry for budget, blocks, and media. Default the local provider at the Omarchy host.
 4. `packages/open-ui` Material 3 tokens and domain widgets: schedule kanban, receipt inspector, invoice preview, topic voting.
-5. Bundle `luna-os` in Tauri, including the Arch Linux / Omarchy target, and `subterra-central` as the PWA. Confirm an unlinked Luna OS hub cannot read SubTerra Central data. Confirm a linked bridge copies only Open Books, Open Bill, and Open Day records the owner marked.
+5. Bundle `subterra-metro` in Tauri, including the Arch Linux / Omarchy target, and `subterra-central` as the PWA. Confirm an unlinked SubTerra Metro hub cannot read SubTerra Central data. Confirm a linked bridge copies only Open Books, Open Bill, and Open Day records the owner marked.
 6. Playwright suites listed under CI.
 
 ## Festy Blocks
@@ -135,7 +135,7 @@ Monetization is the BSL seat key and PoweredUpLabs hosting for Luna OS, ticket p
 
 | Screen | Home |
 |--------|------|
-| Team setup, lobby, shift wishlist, conflict resolver, draft board, coverage, time clock | Open Day (`OD`), inside Luna OS |
+| Team setup, lobby, shift wishlist, conflict resolver, draft board, coverage, time clock | Open Day (`OD`), inside SubTerra Metro |
 | The finished schedule | SubTerra Central, read-only, and only when the owner grants it |
 
 Wishlists and the draft are crew-private. They do not appear on the public event page. Booking (`BO`) is still a hire for a date, not this draft.
@@ -147,7 +147,7 @@ These files were searched before building. Vendor roadmaps inside `actual/` stay
 | Plan | Still used | Dropped |
 |------|------------|---------|
 | `subterra-shell` roadmap, August 2026 | Marketplace of optional packages | Electron and Next shells, `apps/nexus`, separate Apps and Integrations tabs, code `ST` as the thing to build |
-| `blocks` roadmap | Kanban, timeline, quick-add, and task fields are the Blocks (`BK`) screen spec | Windows-desktop-first order. Luna OS Tauri is the shell for every platform |
+| `blocks` roadmap | Kanban, timeline, quick-add, and task fields are the Blocks (`BK`) screen spec | Windows-desktop-first order. SubTerra Metro Tauri is the shell for every platform |
 | `blocks/Docs/Integrations/HERMES_ECOSYSTEM_ARCHITECTURE.md` | A local agent with tools for Blocks, Billbot, Mailbot, and Anytype | Separate repos and MCP as the architecture. The agent is `packages/luna`. Packages do not import each other |
 | `mailbot/cursor_gmail_api_auto_sorting_bot_strat.md` | A later Mailbot slice can pull a bill PDF and hand line items to Billbot if both are installed | Google Sheets as the system of record. The chat export is not a spec |
 | GV-0001, GV-0002 | Dewey codes, audience, NFC challenge-response, vendor `upstream` remotes | Admin/Nexus folder layout, Electron shell, polyrepo as the product shape |

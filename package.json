@@ -2,7 +2,7 @@
   "name": "luna",
   "private": true,
   "version": "0.1.0",
-  "description": "Luna OS monorepo. Standalone packages inside two shells.",
+  "description": "SubTerra Metro monorepo. Standalone packages inside two shells.",
   "packageManager": "pnpm@9.15.9",
   "engines": {
     "node": ">=22"

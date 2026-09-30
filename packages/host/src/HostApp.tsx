@@ -14,7 +14,7 @@ import { catalogFor, type CatalogEntry } from "./catalog";
 function productTitle(shellId: ShellId): string {
   switch (shellId) {
     case "luna-os":
-      return "Luna OS";
+      return "SubTerra Metro";
     case "web-shell":
       return "SubTerra Central";
     default: {
@@ -29,7 +29,7 @@ function introFor(shellId: ShellId): ReactNode {
     case "luna-os":
       return (
         <>
-          <p>Luna OS is the local shell. Install only the packages you want. An uninstalled package is not loaded.</p>
+          <p>SubTerra Metro is the local shell. Install only the packages you want. An uninstalled package is not loaded.</p>
           <p>Omarchy can host Ollama. Gemma 4 12B is the local model when Luna is installed.</p>
         </>
       );
