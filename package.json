@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "pnpm --filter @central/central dev",
     "dev:web": "pnpm --filter @central/metro dev",
+    "dev:anytype": "pnpm --filter @central/anytype start",
     "build": "pnpm --filter @central/central build && pnpm --filter @central/metro build",
     "typecheck": "pnpm -r --if-present typecheck",
     "test": "vitest run"

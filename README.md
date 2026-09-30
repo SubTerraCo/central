@@ -23,6 +23,14 @@ Central monorepo. Two shells share one marketplace. Packages do not import each 
 | MD | Media | Central |
 | BK | Banking | Central |
 
+Integrations are not marketplace packages. Central hosts them.
+
+| Code | Integration | Machine key | Where it runs |
+| --- | --- | --- | --- |
+| AT | Grok bot Anytype | `grok-bot-anytype` | Central (`integrations/anytype`). Cara only serves Anytype desktop Local API on `127.0.0.1:31009`. |
+
+The adapter interface in `packages/integration-adapter` is the mount shape Hermes will implement later.
+
 Open Time carries the Blocks columns and the Festy Blocks crew draft, coverage check, and time clock. A published schedule is read-only. Open Sort follows the Mailbot rule shape and never deletes mail. Open Gig is free for a solo freelancer and bills a crew manager of 5 or more. Subtoken refuses a tag UID that has no SUN response.
 
 The blueprint is [ARCHITECTURE.md](./ARCHITECTURE.md). Governance lives in `SubTerraCo/grounded-rules`. New code in this repo is BSL 1.1. See [LICENSE.md](./LICENSE.md).
@@ -41,6 +49,14 @@ pnpm dev:web
 ```
 
 That window is at http://localhost:1421.
+
+Grok bot Anytype HTTP (Central host, not Cara `:31009`):
+
+```bash
+pnpm dev:anytype
+```
+
+See `integrations/anytype/README.md`. Copy `.env.example` to `.env` on the host. Do not commit secrets.
 
 Each dev server keeps its own browser storage. The bridge shares Open Books, Open Bill, Open Time, and Anytype when both shells use the same hub. That happens in the Tauri app and in the hub tests. Two localhost ports do not share `localStorage`.
 

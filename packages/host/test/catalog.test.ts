@@ -8,6 +8,10 @@ describe("catalog", () => {
     expect(codes).toEqual(["OT", "OS", "OB", "OL", "PR", "TK", "OG", "CM", "FM", "HA", "MD", "BK"]);
   });
 
+  it("does not list Grok bot Anytype as a marketplace package", () => {
+    expect(catalog.map((entry) => entry.code)).not.toContain("AT");
+  });
+
   it("keeps mail, banking, and the local agent off the public shell", () => {
     const web = catalogFor("metro").map((entry) => entry.code);
     expect(web).toEqual(["OT", "OB", "OL", "TK", "OG", "CM", "FM"]);

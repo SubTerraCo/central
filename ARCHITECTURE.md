@@ -12,7 +12,7 @@ Copy this file to the monorepo root at Phase 1. Until that repo exists, this cop
 - Rust only inside Tauri bindings: filesystem, local IPC, NFC hardware, DaVinci socket.
 - Local hub store: SQLite via SQLCipher, hub documents synced with Yjs.
 - Finance store: Actual's own SQLite CRDT inside `packages/open-books` (`OB`), via `@actual-app/api`. Do not wrap Actual's file in a second CRDT. Invoicing is `packages/open-bill` (`OL`).
-- PKM lives in a dedicated Anytype workspace. It is not a package in this monorepo. The shell hub does not require it.
+- PKM lives in a dedicated Anytype workspace. It is not a marketplace package. Central hosts the optional Grok bot Anytype integration (`AT`, `integrations/anytype`, machine key `grok-bot-anytype`) through `packages/integration-adapter` so Hermes can mount the same way later. Cara only runs Anytype desktop Local API on `127.0.0.1:31009`. The shell hub does not require Anytype.
 - Material 3 tokens in `packages/open-ui`, generated with `@material/material-color-utilities`, applied through the Tailwind preset in `tooling/config-tailwind`. Powerline seeds: primary purple `#400080`, secondary pink `#ED1CAD`, tertiary light blue `#1CEDC5`, accent teal `#008080`. Interim Material 3 type scale (Roboto, pending a later font pick) and a 4dp spacing grid. No arbitrary Tailwind values. No hardcoded hex or RGB in `.tsx`.
 
 ## Apps and packages
@@ -35,6 +35,9 @@ packages/
   home-assistant/        # HA — Home Assistant client
   media/                 # MD — DaVinci, OBS, Loupedeck
   open-ui/               # Material 3 tokens. No app code
+  integration-adapter/   # Shared Central integration interface (Hermes later)
+integrations/
+  anytype/               # AT — Grok bot Anytype. Central hosts HTTP; Cara :31009 only
 tooling/
   config-eslint/
   config-typescript/
@@ -68,7 +71,7 @@ Use these projects for the engine and the patches. Write the Material 3 screen a
 | Hub | Yjs and SQLCipher | A CRDT written here |
 | UI | `@material/material-color-utilities` | A second design system |
 | Booking `BO` | No maintained open marketplace matches a profile, a rate, and a date request | Team@Once and Mercur. They are staffing or product commerce, not this listing |
-| Anytype `AT` | any-sync, optional | Making it required |
+| Anytype `AT` | any-sync plus Central integration `integrations/anytype` (`grok-bot-anytype`). Hermes reuses `packages/integration-adapter` | Making it required. A Cara Node service. A marketplace catalog entry |
 
 Existing SubTerraCo repos stay on `master` and keep calling governance workflows until they are folded in.
 
