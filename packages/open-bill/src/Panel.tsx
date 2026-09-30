@@ -1,19 +1,23 @@
 import { useState } from "react";
 import type { PackagePanelProps } from "@central/hub";
-import { PanelFrame, useDomain } from "@central/open-ui";
+import { PanelFrame, tokens, useDomain } from "@central/open-ui";
 import { invoiceTotalCents, needs1099, type InvoiceDraft } from "./invoice";
+import { OPEN_BILL_HUB_DOMAIN, OPEN_BILL_NAME } from "./meta";
 import { formatCents, parseAmountToCents } from "./money";
 
 export function OpenBillPanel({ shellId }: PackagePanelProps) {
-  const [invoices, save] = useDomain<InvoiceDraft>(shellId, "bill");
+  const [invoices, save] = useDomain<InvoiceDraft>(shellId, OPEN_BILL_HUB_DOMAIN);
   const [customer, setCustomer] = useState("");
   const [amount, setAmount] = useState("");
   const [form1099, setForm1099] = useState(false);
   const [error, setError] = useState("");
 
   return (
-    <PanelFrame title="Open Bill">
-      <p>This package does not read Open Books. Link the shells if you want those records copied.</p>
+    <PanelFrame title={OPEN_BILL_NAME}>
+      <p>
+        Invoicing only. Budgeting stays in Open Books. This package does not read the ledger. Link the shells if you
+        want these records copied.
+      </p>
       <form
         onSubmit={(event) => {
           event.preventDefault();
@@ -48,7 +52,11 @@ export function OpenBillPanel({ shellId }: PackagePanelProps) {
         </label>
         <button type="submit">Add invoice</button>
       </form>
-      {error ? <p role="status">{error}</p> : null}
+      {error ? (
+        <p role="status" style={{ color: tokens.error }}>
+          {error}
+        </p>
+      ) : null}
       <ul>
         {invoices.map((invoice) => {
           const total = invoiceTotalCents(invoice.lines);
