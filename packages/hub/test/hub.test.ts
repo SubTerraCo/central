@@ -17,48 +17,48 @@ beforeEach(() => {
 
 describe("installed packages", () => {
   it("installs one package without turning on another", () => {
-    install("luna-os", "OD");
-    expect(listInstalled("luna-os")).toEqual(["OD"]);
+    install("subterra-metro", "OD");
+    expect(listInstalled("subterra-metro")).toEqual(["OD"]);
     expect(listInstalled("web-shell")).toEqual([]);
   });
 
   it("removes only the package that was turned off", () => {
-    install("luna-os", "OD");
-    install("luna-os", "OS");
-    uninstall("luna-os", "OD");
-    expect(listInstalled("luna-os")).toEqual(["OS"]);
+    install("subterra-metro", "OD");
+    install("subterra-metro", "OS");
+    uninstall("subterra-metro", "OD");
+    expect(listInstalled("subterra-metro")).toEqual(["OS"]);
   });
 });
 
 describe("shell bridge", () => {
   it("stays off until the owner links the shells", () => {
     expect(bridgeEnabled()).toBe(false);
-    writeRecords("luna-os", "day", [{ id: "1" }]);
+    writeRecords("subterra-metro", "day", [{ id: "1" }]);
     expect(readRecords("web-shell", "day")).toEqual([]);
   });
 
   it("shares books, bill, and day when linked", () => {
     setBridge(true);
-    writeRecords("luna-os", "books", [{ id: "rent" }]);
-    writeRecords("luna-os", "bill", [{ id: "inv" }]);
-    writeRecords("luna-os", "day", [{ id: "task" }]);
+    writeRecords("subterra-metro", "books", [{ id: "rent" }]);
+    writeRecords("subterra-metro", "bill", [{ id: "inv" }]);
+    writeRecords("subterra-metro", "day", [{ id: "task" }]);
     expect(readRecords("web-shell", "books")).toEqual([{ id: "rent" }]);
     expect(readRecords("web-shell", "bill")).toEqual([{ id: "inv" }]);
     expect(readRecords("web-shell", "day")).toEqual([{ id: "task" }]);
   });
 
   it("copies finance and time that already existed when the link turns on", () => {
-    writeRecords("luna-os", "books", [{ id: "rent" }]);
+    writeRecords("subterra-metro", "books", [{ id: "rent" }]);
     writeRecords("web-shell", "day", [{ id: "shift" }]);
     setBridge(true);
     expect(readRecords("web-shell", "books")).toEqual([{ id: "rent" }]);
-    expect(readRecords("luna-os", "day")).toEqual([{ id: "shift" }]);
+    expect(readRecords("subterra-metro", "day")).toEqual([{ id: "shift" }]);
   });
 
   it("does not share mail when linked", () => {
     setBridge(true);
-    writeRecords("luna-os", "sort", [{ id: "rule" }]);
-    expect(recordKey("web-shell", "sort")).not.toBe(recordKey("luna-os", "sort"));
+    writeRecords("subterra-metro", "sort", [{ id: "rule" }]);
+    expect(recordKey("web-shell", "sort")).not.toBe(recordKey("subterra-metro", "sort"));
     expect(readRecords("web-shell", "sort")).toEqual([]);
   });
 });

@@ -9,8 +9,8 @@ export type CatalogEntry = {
   load: () => Promise<ComponentType<PackagePanelProps>>;
 };
 
-const both: readonly ShellId[] = ["luna-os", "web-shell"];
-const local: readonly ShellId[] = ["luna-os"];
+const both: readonly ShellId[] = ["subterra-metro", "web-shell"];
+const local: readonly ShellId[] = ["subterra-metro"];
 
 export const catalog: readonly CatalogEntry[] = [
   {

@@ -7,7 +7,7 @@ Copy this file to the monorepo root at Phase 1. Until that repo exists, this cop
 ## Stack
 
 - TypeScript strict mode for UI, domain logic, and shared types. React 19. Vite.
-- Two shells only: `apps/subterra-metro` (Tauri v2 for Windows, macOS, Android, iOS, and Arch Linux; Dewey `SM`) and `apps/web-shell` (offline-first PWA).
+- Two Metro runtimes now: `apps/subterra-metro` (Tauri v2 for Windows, macOS, Android, iOS, and Arch Linux; Dewey `SM`; address alias `LO`) and `apps/web-shell` (current Metro web entry, offline-first PWA). SubTerra Central (`SC`, personal AI hub) lands at `apps/subterra-central` when that app is present. Anytype Central integration is Central-side.
 - Arch builds install on Omarchy. That machine is the dedicated local AI host: Ollama runs there, and `packages/luna` calls it on localhost. Ship an AppImage and a PKGBUILD.
 - Rust only inside Tauri bindings: filesystem, local IPC, NFC hardware, DaVinci socket.
 - Local hub store: SQLite via SQLCipher, hub documents synced with Yjs.
@@ -19,9 +19,9 @@ Copy this file to the monorepo root at Phase 1. Until that repo exists, this cop
 
 ```
 apps/
-  subterra-metro/        # SM — Tauri command center, including Arch / Omarchy
-  web-shell/             # PWA runtime
-  subterra-central/      # SC — gigs, events, NFC event page
+  subterra-metro/        # SM — Metro social app, Tauri (Windows, macOS, Android, iOS, Arch / Omarchy). LO is an address alias for SM
+  web-shell/             # current Metro web entry (PWA)
+  subterra-central/      # SC — personal AI hub, when present. Anytype Central integration is Central-side
   open-gig/              # OG — profile, listing, rate, date request
   community/             # CH — voting and discussion UI
 packages/
@@ -49,7 +49,7 @@ Luna's provider list is `local-ollama`, `local-vllm`, `cloud-anthropic`, `cloud-
 
 The monorepo pipeline runs on `master` and `dev`, and on pull requests into `master`. Node 22. pnpm 9. Fail the job on lint, typecheck, token check, unit tests, then build. Playwright covers visual regression, offline Yjs convergence, the finance path (receipt to ledger to Billbot to a simulated bank match), tenant isolation, and mocked NFC plus a local Solana validator.
 
-Create `SubTerraCo/luna` with `master` as the default branch. Do not use `main`.
+Create `SubTerraCo/subterra-metro` with `master` as the default branch. Do not use `main`. The GitHub slug is still `luna-os` until Powerline Settings renames it.
 
 ## Upstream cores
 
@@ -87,11 +87,11 @@ Optional facts another package might have written are read from the hub only aft
 
 PKM stays in a dedicated Anytype workspace. It is not a package here, and Open Axiom is cut. The shell hub is the store for installed packages. Other people are not required to run Anytype.
 
-The same package can be installed in SubTerra Metro, in the SubTerra Central PWA, or in both. Each shell has its own hub. Installing it in one shell does not install it in the other.
+The same package can be installed in SubTerra Metro (Tauri or the current web-shell entry), in SubTerra Central when that app is present, or in both. Each shell has its own hub. Installing it in one shell does not install it in the other.
 
-A person who uses both shells may turn on a data bridge. It is off by default. The bridge copies only Open Books, Open Bill, and Open Day records that the person marks. Mail, banking, and home automation stay on SubTerra Metro. Central's public pages never receive the unbridged SubTerra Metro hub.
+A person who uses both Metro runtimes may turn on a data bridge. It is off by default. The bridge copies only Open Books, Open Bill, and Open Day records that the person marks. Mail, banking, and home automation stay on the Metro Tauri shell. Central's personal hub never receives the unbridged SubTerra Metro hub.
 
-## SubTerra Central access
+## SubTerra Metro access
 
 A tag opens an event page after NTAG424 challenge-response. A UID alone does not sign anyone in.
 
@@ -101,7 +101,7 @@ A one-time charge upgrades that profile to Artist, Venue, or Vendor. The charge 
 
 Booking listings are free for a single freelancer. A crew manager with 5 or more members pays the booking fee. The fee is for managing that crew, not for looking for work alone.
 
-| Package | SubTerra Metro (personal and white-label) | SubTerra Central (public events) | Sells as |
+| Package | SubTerra Metro Tauri (`SM`; `LO` alias) | SubTerra Metro web (current `web-shell`) | Sells as |
 |---------|--------------------------------------|----------------------------------|----------|
 | Open Books `OB` | Yes | Only through the owner's bridge | Back-office seat. Bridge is optional |
 | Open Bill `BI` | Yes | Only through the owner's bridge | Back-office seat. Bridge is optional |
@@ -118,7 +118,11 @@ Booking listings are free for a single freelancer. A crew manager with 5 or more
 
 UI is not a marketplace item. It ships inside both shells.
 
-Monetization is the BSL seat key and PoweredUpLabs hosting for SubTerra Metro, ticket prices on SubTerra Central, a one-time Artist, Venue, or Vendor profile upgrade, and the Open Gig fee for crew managers of 5 or more. A solo freelancer does not pay that fee. A package that is not installed is not billed and is not loaded.
+Monetization is the BSL seat key and PoweredUpLabs hosting for SubTerra Metro, ticket prices on the Metro web entry, a one-time Artist, Venue, or Vendor profile upgrade, and the Open Gig fee for crew managers of 5 or more. A solo freelancer does not pay that fee. A package that is not installed is not billed and is not loaded.
+
+## SubTerra Central
+
+SubTerra Central (`SC`) is the personal AI hub. It lands at `apps/subterra-central` when that app is present. Anytype Central integration is Central-side. The personal agent remains Luna (`LU`, `packages/luna`); do not rename that agent to Metro.
 
 ## Phases
 
@@ -126,7 +130,7 @@ Monetization is the BSL seat key and PoweredUpLabs hosting for SubTerra Metro, t
 2. Shell hub on SQLite (`better-sqlite3` in Tauri, SQL.js or WASM on the web) and Yjs. `budget` around `@actual-app/api`. `billbot` stays a separate invoicing package. `anytype` is an optional mirror of the hub, not the store packages require.
 3. `luna` with the provider interface and a tool registry for budget, blocks, and media. Default the local provider at the Omarchy host.
 4. `packages/open-ui` Material 3 tokens and domain widgets: schedule kanban, receipt inspector, invoice preview, topic voting.
-5. Bundle `subterra-metro` in Tauri, including the Arch Linux / Omarchy target, and `subterra-central` as the PWA. Confirm an unlinked SubTerra Metro hub cannot read SubTerra Central data. Confirm a linked bridge copies only Open Books, Open Bill, and Open Day records the owner marked.
+5. Bundle `subterra-metro` in Tauri, including the Arch Linux / Omarchy target, and keep `web-shell` as the current Metro PWA entry. `subterra-central` is the personal AI hub when that app is present. Confirm an unlinked SubTerra Metro hub cannot read Central data. Confirm a linked bridge copies only Open Books, Open Bill, and Open Day records the owner marked.
 6. Playwright suites listed under CI.
 
 ## Festy Blocks
@@ -136,7 +140,7 @@ Monetization is the BSL seat key and PoweredUpLabs hosting for SubTerra Metro, t
 | Screen | Home |
 |--------|------|
 | Team setup, lobby, shift wishlist, conflict resolver, draft board, coverage, time clock | Open Day (`OD`), inside SubTerra Metro |
-| The finished schedule | SubTerra Central, read-only, and only when the owner grants it |
+| The finished schedule | SubTerra Metro web entry, read-only, and only when the owner grants it |
 
 Wishlists and the draft are crew-private. They do not appear on the public event page. Booking (`BO`) is still a hire for a date, not this draft.
 

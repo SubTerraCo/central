@@ -1,3 +1,3 @@
 fn main() {
-    luna_os_lib::run()
+    subterra_metro_lib::run()
 }

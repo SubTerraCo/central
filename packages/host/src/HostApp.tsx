@@ -13,10 +13,9 @@ import { catalogFor, type CatalogEntry } from "./catalog";
 
 function productTitle(shellId: ShellId): string {
   switch (shellId) {
-    case "luna-os":
-      return "SubTerra Metro";
+    case "subterra-metro":
     case "web-shell":
-      return "SubTerra Central";
+      return "SubTerra Metro";
     default: {
       const unreachable: never = shellId;
       return unreachable;
@@ -26,10 +25,13 @@ function productTitle(shellId: ShellId): string {
 
 function introFor(shellId: ShellId): ReactNode {
   switch (shellId) {
-    case "luna-os":
+    case "subterra-metro":
       return (
         <>
-          <p>SubTerra Metro is the local shell. Install only the packages you want. An uninstalled package is not loaded.</p>
+          <p>
+            SubTerra Metro is the social app. This window is the desktop and mobile shell. Install only the packages
+            you want. An uninstalled package is not loaded.
+          </p>
           <p>Omarchy can host Ollama. Gemma 4 12B is the local model when Luna is installed.</p>
         </>
       );
@@ -37,8 +39,8 @@ function introFor(shellId: ShellId): ReactNode {
       return (
         <>
           <p>
-            SubTerra Central is the gig and event hub. A tag opens an event page after a SUN response. The UID is
-            not a login.
+            SubTerra Metro is the social app. This page is the current web entry. A tag opens an event page after a
+            SUN response. The UID is not a login.
           </p>
           <p>
             Anonymous holders can buy tickets, keep show history, hold digital goods, and use an alias. Friend-show

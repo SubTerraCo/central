@@ -2,6 +2,7 @@
   "name": "@luna/web-shell",
   "version": "0.1.0",
   "private": true,
+  "description": "Current SubTerra Metro web entry",
   "type": "module",
   "scripts": {
     "dev": "vite",

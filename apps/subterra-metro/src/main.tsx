@@ -9,6 +9,6 @@ if (root === null) {
 
 createRoot(root).render(
   <StrictMode>
-    <HostApp shellId="luna-os" />
+    <HostApp shellId="subterra-metro" />
   </StrictMode>,
 );

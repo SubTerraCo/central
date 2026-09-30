@@ -1,7 +1,8 @@
 {
-  "name": "@luna/os",
+  "name": "@subterra/metro",
   "version": "0.1.0",
   "private": true,
+  "description": "SubTerra Metro Tauri shell (SM; LO alias)",
   "type": "module",
   "scripts": {
     "dev": "vite",
