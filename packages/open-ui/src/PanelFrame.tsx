@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { tokens } from "./tokens";
+import { spacePx, tokens, typeStyle } from "./tokens";
 
 export function PanelFrame({
   title,
@@ -13,18 +13,18 @@ export function PanelFrame({
   return (
     <section
       className="luna-panel"
-      style={{ display: "grid", gap: "0.75rem", maxWidth: wide ? "72rem" : "40rem" }}
+      style={{ display: "grid", gap: spacePx(3), maxWidth: wide ? "72rem" : "40rem" }}
     >
       <style>{`
         .luna-panel form {
           display: flex;
           flex-wrap: wrap;
-          gap: 0.5rem 0.75rem;
+          gap: ${spacePx(2)} ${spacePx(3)};
           align-items: end;
         }
         .luna-panel label {
           display: grid;
-          gap: 0.25rem;
+          gap: ${spacePx(1)};
           justify-items: start;
         }
         .luna-panel input,
@@ -33,8 +33,8 @@ export function PanelFrame({
           font: inherit;
         }
       `}</style>
-      <h1 style={{ margin: 0, fontSize: "1.75rem" }}>{title}</h1>
-      <div style={{ color: tokens.onSurfaceVariant }}>{children}</div>
+      <h1 style={{ ...typeStyle("headlineMedium"), margin: 0 }}>{title}</h1>
+      <div style={{ ...typeStyle("bodyMedium"), color: tokens.onSurfaceVariant }}>{children}</div>
     </section>
   );
 }

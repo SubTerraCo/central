@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import type { InstalledPackage } from "@luna/hub";
-import { tokens } from "./tokens";
+import { spacePx, tokens, typeStyle } from "./tokens";
 
 export type LunaShellProps = {
   productTitle: string;
@@ -31,16 +31,16 @@ export function LunaShell({
         minHeight: "100vh",
         background: tokens.surface,
         color: tokens.onSurface,
-        fontFamily: "system-ui, sans-serif",
+        fontFamily: tokens.type.fontFamily,
       }}
     >
       <header
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "0.75rem",
+          gap: spacePx(3),
           flexWrap: "wrap",
-          padding: "0.75rem 1.25rem",
+          padding: `${spacePx(3)} ${spacePx(5)}`,
           background: tokens.surfaceContainer,
           borderBottom: `1px solid ${tokens.outline}`,
         }}
@@ -61,7 +61,7 @@ export function LunaShell({
           />
         ))}
       </header>
-      <main style={{ padding: "1.5rem" }}>
+      <main style={{ padding: spacePx(6) }}>
         {section === "home" ? (
           <Home intro={intro} installed={installed} bridgeOn={bridgeOn} onBridge={onBridge} />
         ) : null}
@@ -84,10 +84,10 @@ function Home({
   onBridge: (on: boolean) => void;
 }) {
   return (
-    <section style={{ display: "grid", gap: "0.75rem", maxWidth: "40rem" }}>
-      <h1 style={{ fontSize: "1.75rem", margin: 0 }}>Home</h1>
+    <section style={{ display: "grid", gap: spacePx(3), maxWidth: "40rem" }}>
+      <h1 style={{ ...typeStyle("headlineMedium"), margin: 0 }}>Home</h1>
       <div>{intro}</div>
-      <p style={{ color: tokens.onSurfaceVariant }}>
+      <p style={{ ...typeStyle("bodyMedium"), color: tokens.onSurfaceVariant }}>
         {installed.length === 0
           ? "No packages installed. The shell runs on its own."
           : `${installed.length} packages installed.`}
@@ -100,7 +100,7 @@ function Home({
         />{" "}
         Link finance and time with the other shell
       </label>
-      <p style={{ color: tokens.onSurfaceVariant }}>
+      <p style={{ ...typeStyle("bodyMedium"), color: tokens.onSurfaceVariant }}>
         {bridgeOn
           ? "Open Books, Open Bill, and Open Day are shared. Everything else stays on this shell."
           : "The bridge is off. This shell keeps its own records."}
@@ -123,9 +123,10 @@ function ShellTab({
       type="button"
       onClick={onPress}
       style={{
+        ...typeStyle("labelLarge"),
         border: "none",
         borderRadius: "999px",
-        padding: "0.4rem 0.8rem",
+        padding: `${spacePx(2)} ${spacePx(3)}`,
         background: selected ? tokens.primary : "transparent",
         color: selected ? tokens.onPrimary : tokens.onSurface,
         cursor: "pointer",

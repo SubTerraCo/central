@@ -1,6 +1,6 @@
 {
   "identifier": "default",
-  "description": "Default Luna OS window",
+  "description": "Default SubTerra Metro window",
   "windows": ["main"],
   "permissions": ["core:default"]
 }

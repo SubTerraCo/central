@@ -2,7 +2,7 @@
 name = "luna-os"
 version = "0.1.0"
 edition = "2021"
-description = "Luna OS desktop and mobile shell"
+description = "SubTerra Metro desktop and mobile shell"
 
 [lib]
 name = "luna_os_lib"
