@@ -102,7 +102,7 @@ function Home({
       </label>
       <p style={{ ...typeStyle("bodyMedium"), color: tokens.onSurfaceVariant }}>
         {bridgeOn
-          ? "Open Books, Open Bill, and Open Day are shared. Everything else stays on this shell."
+          ? "Open Books, Open Bill, Open Time, and Anytype are shared. Everything else stays on this shell."
           : "The bridge is off. This shell keeps its own records."}
       </p>
     </section>

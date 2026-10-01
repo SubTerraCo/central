@@ -3,17 +3,17 @@ export type AgentProvider = "local-ollama" | "cloud-gemini";
 export const DEFAULT_LOCAL_MODEL = "gemma4:12b";
 
 const toolByCode: Record<string, string> = {
-  OD: "tasks",
+  OT: "tasks",
   OS: "mail",
   OB: "ledger",
-  BI: "invoices",
+  OL: "invoices",
   TK: "shows",
   OG: "gigs",
-  CH: "community",
+  CM: "community",
   FM: "forum",
   HA: "home",
-  MA: "cues",
-  BS: "bank",
+  MD: "cues",
+  BK: "bank",
 };
 
 export function modelFor(provider: AgentProvider): string {

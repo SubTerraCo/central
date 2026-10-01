@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "description": "Central monorepo. Standalone packages inside two shells.",
-  "packageManager": "pnpm@9.15.9",
+  "packageManager": "pnpm@11.14.0",
   "engines": {
     "node": ">=22"
   },

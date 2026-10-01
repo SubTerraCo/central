@@ -5,12 +5,12 @@ describe("catalog", () => {
   it("gives every package one code", () => {
     const codes = catalog.map((entry) => entry.code);
     expect(new Set(codes).size).toBe(codes.length);
-    expect(codes).toEqual(["OD", "OS", "OB", "BI", "PR", "TK", "OG", "CH", "FM", "HA", "MA", "BS"]);
+    expect(codes).toEqual(["OT", "OS", "OB", "OL", "PR", "TK", "OG", "CM", "FM", "HA", "MD", "BK"]);
   });
 
   it("keeps mail, banking, and the local agent off the public shell", () => {
     const web = catalogFor("metro").map((entry) => entry.code);
-    expect(web).toEqual(["OD", "OB", "BI", "TK", "OG", "CH", "FM"]);
+    expect(web).toEqual(["OT", "OB", "OL", "TK", "OG", "CM", "FM"]);
   });
 
   it("offers the local packages on Central", () => {

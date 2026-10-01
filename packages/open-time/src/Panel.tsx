@@ -8,7 +8,7 @@ import {
   quickBlock,
   taskStatusLabels,
   taskStatuses,
-  type DayTask,
+  type TimeTask,
 } from "./board";
 import { grantTimeOff, punchMinutes, scheduleIsLocked, type Punch } from "./crew";
 
@@ -31,8 +31,8 @@ function crewTime(item: CrewItem, now: string): string {
   return `${minutes}m`;
 }
 
-export function OpenDayPanel({ shellId }: PackagePanelProps) {
-  const [tasks, saveTasks] = useDomain<DayTask>(shellId, "day");
+export function OpenTimePanel({ shellId }: PackagePanelProps) {
+  const [tasks, saveTasks] = useDomain<TimeTask>(shellId, "time");
   const [crew, saveCrew] = useDomain<CrewItem>(shellId, "crew");
   const [schedule, saveSchedule] = useDomain<ScheduleState>(shellId, "schedule");
   const [title, setTitle] = useState("");
@@ -42,7 +42,7 @@ export function OpenDayPanel({ shellId }: PackagePanelProps) {
   const locked = scheduleIsLocked(schedule[0]?.state ?? "draft");
   const now = new Date().toISOString();
 
-  function addTask(nextTitle: string, status: DayTask["status"], minutes: number) {
+  function addTask(nextTitle: string, status: TimeTask["status"], minutes: number) {
     if (nextTitle.trim() === "") return;
     saveTasks([
       ...tasks,
@@ -101,7 +101,7 @@ export function OpenDayPanel({ shellId }: PackagePanelProps) {
   }
 
   return (
-    <PanelFrame title="Open Day" wide>
+    <PanelFrame title="Open Time" wide>
       <p>Tasks use the Blocks columns. Crew drafting, coverage, and the time clock come from Festy Blocks.</p>
       <p>Doing: {onTimeline(tasks).map((task) => task.title).join(", ") || "nobody"}</p>
       <form

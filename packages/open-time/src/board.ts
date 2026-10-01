@@ -11,7 +11,7 @@ export const taskStatusLabels: Record<TaskStatus, string> = {
   done: "Done",
 };
 
-export type DayTask = {
+export type TimeTask = {
   id: string;
   title: string;
   status: TaskStatus;
@@ -24,7 +24,7 @@ export function isTaskStatus(value: string): value is TaskStatus {
   return taskStatuses.some((status) => status === value);
 }
 
-export function quickBlock(title = "Quick block"): Omit<DayTask, "id"> {
+export function quickBlock(title = "Quick block"): Omit<TimeTask, "id"> {
   return { title, status: "todo", minutes: QUICK_BLOCK_MINUTES };
 }
 

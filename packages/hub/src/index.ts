@@ -10,7 +10,7 @@ export type PackagePanelProps = {
   installedCodes?: readonly string[];
 };
 
-export const BRIDGED_DOMAINS = ["books", "bill", "day"] as const;
+export const BRIDGED_DOMAINS = ["books", "bill", "time", "anytype"] as const;
 
 const PREFIX = "central.";
 const bridged = new Set<string>(BRIDGED_DOMAINS);

@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { moveTask, onTimeline, quickBlock } from "../src/board";
 import { grantTimeOff, peopleWorking, punchMinutes, scheduleIsLocked } from "../src/crew";
 
-describe("day board", () => {
+describe("time board", () => {
   it("drops a quick block on To-Do for 30 minutes", () => {
     expect(quickBlock()).toEqual({ title: "Quick block", status: "todo", minutes: 30 });
   });

@@ -11,7 +11,7 @@ Copy this file to the monorepo root at Phase 1. Until that repo exists, this cop
 - Arch builds install on Omarchy. That machine is the dedicated local AI host: Ollama runs there, and `packages/pepper` calls it on localhost. Ship an AppImage and a PKGBUILD.
 - Rust only inside Tauri bindings: filesystem, local IPC, NFC hardware, DaVinci socket.
 - Local hub store: SQLite via SQLCipher, hub documents synced with Yjs.
-- Finance store: Actual's own SQLite CRDT inside `packages/open-books` (`OB`), via `@actual-app/api`. Do not wrap Actual's file in a second CRDT. Invoicing is `packages/open-bill` (`BI`).
+- Finance store: Actual's own SQLite CRDT inside `packages/open-books` (`OB`), via `@actual-app/api`. Do not wrap Actual's file in a second CRDT. Invoicing is `packages/open-bill` (`OL`).
 - PKM lives in a dedicated Anytype workspace. It is not a package in this monorepo. The shell hub does not require it.
 - Material 3 tokens in `packages/open-ui`, generated with `@material/material-color-utilities`, applied through the Tailwind preset in `tooling/config-tailwind`. Powerline seeds: primary purple `#400080`, secondary pink `#ED1CAD`, tertiary light blue `#1CEDC5`, accent teal `#008080`. Interim Material 3 type scale (Roboto, pending a later font pick) and a 4dp spacing grid. No arbitrary Tailwind values. No hardcoded hex or RGB in `.tsx`.
 
@@ -21,19 +21,19 @@ Copy this file to the monorepo root at Phase 1. Until that repo exists, this cop
 apps/
   central/               # CT — local Tauri app and package host
   metro/                 # MT — public PWA; social and ticketing
-  open-gig/              # OG — profile, listing, rate, date request
-  community/             # CH — voting and discussion UI
 packages/
-  open-day/              # OD — tasks, timeline, Quick Blocks, Festy crew tools
+  open-time/             # OT — tasks, timeline, Quick Blocks, Festy crew tools (former code OD)
+  open-gig/              # OG — profile, listing, rate, date request
+  community/             # CM — voting and discussion UI
   open-sort/             # OS — Gmail and IMAP labels and archive
   open-books/            # OB — @actual-app/api budgeting
-  open-bill/             # BI — invoicing and 1099 exports
+  open-bill/             # OL — invoicing and 1099 exports
   subtoken/              # TK — NTAG424 challenge-response and tickets
   pepper/                # PR — agent router; Hermes is the runtime
-  banking/               # BS — SimpleFIN and GoCardless
+  banking/               # BK — SimpleFIN and GoCardless. Not Blocks.
   forum/                 # FM — Flarum
   home-assistant/        # HA — Home Assistant client
-  media/                 # MA — DaVinci, OBS, Loupedeck
+  media/                 # MD — DaVinci, OBS, Loupedeck
   open-ui/               # Material 3 tokens. No app code
 tooling/
   config-eslint/
@@ -42,13 +42,13 @@ tooling/
   design-governance/     # token check used by CI
 ```
 
-Luna's provider list is `local-ollama`, `local-vllm`, `cloud-anthropic`, `cloud-openai`, `cloud-gemini`. On Omarchy, local-ollama is the default and the base URL is that machine. Tool definitions and prompt shape do not change when the provider changes. API keys are supplied by the user at runtime and are never committed.
+Pepper's provider list is `local-ollama`, `local-vllm`, `cloud-anthropic`, `cloud-openai`, `cloud-gemini`. On Omarchy, local-ollama is the default and the base URL is that machine. Tool definitions and prompt shape do not change when the provider changes. API keys are supplied by the user at runtime and are never committed.
 
 ## CI
 
 The monorepo pipeline runs on `master` and `dev`, and on pull requests into `master`. Node 22. pnpm 9. Fail the job on lint, typecheck, token check, unit tests, then build. Playwright covers visual regression, offline Yjs convergence, the finance path (receipt to ledger to Billbot to a simulated bank match), tenant isolation, and mocked NFC plus a local Solana validator.
 
-Create `SubTerraCo/luna` with `master` as the default branch. Do not use `main`.
+This repo is the product monorepo. GitHub slug follows `SubTerraCo/central`. Default branch is `master`. Do not use `main`.
 
 ## Upstream cores
 
@@ -57,14 +57,14 @@ Use these projects for the engine and the patches. Write the Material 3 screen a
 | Package | Use | Leave out |
 |---------|-----|-----------|
 | Open Books `OB` | `@actual-app/api` (MIT). Actual already syncs SimpleFIN and GoCardless | A second ledger. The name Open Budget is already published |
-| Open Day `OD` | The existing Blocks app, plus Festy crew screens | Super Productivity. It has no Quick Blocks, and forking it would throw away the kanban that already works |
-| Open Bill `BI` | Our invoicing package | InvoiceShelf. We will outbuild it. Do not vendor the AGPL app |
+| Open Time `OT` | The existing Blocks app, plus Festy crew screens | Super Productivity. It has no Quick Blocks, and forking it would throw away the kanban that already works |
+| Open Bill `OL` | Our invoicing package | InvoiceShelf. We will outbuild it. Do not vendor the AGPL app |
 | Open Sort `OS` | Our label-and-archive package | gmailctl and hosted inbox products. We will outbuild them |
 | Subtoken `TK` | NXP's public SDM spec for NTAG424. Our ticket record and event page | pretix and Hi.Events. Both are AGPL with extra terms that block a white-label ticket platform |
-| Community `CH` / Forum `FM` | Flarum (MIT) | Discourse (GPL) |
+| Community `CM` / Forum `FM` | Flarum (MIT) | Discourse (GPL) |
 | Home Assistant `HA` | `home-assistant-js-websocket` against a local Home Assistant server (Apache 2.0) | Forking Home Assistant |
-| Media `MA` | `obs-websocket-js` (MIT). DaVinci's scripting API ships with Resolve | A video editor |
-| Luna `LU` | Ollama as the local runtime. Gemma 4 12B as the default weights on a 16GB GPU. Cloud Gemini stays available | Hermes as the default model. Gemma 4 31B and the 26B MoE at Q4_K_M as the daily default |
+| Media `MD` | `obs-websocket-js` (MIT). DaVinci's scripting API ships with Resolve | A video editor |
+| Pepper `PR` | Ollama as the local runtime. Gemma 4 12B as the default weights on a 16GB GPU. Cloud Gemini stays available. Installs on Central | Hermes as the model name. The runtime Pepper runs on is Hermes Agent. Gemma 4 31B and the 26B MoE at Q4_K_M as the daily default |
 | Hub | Yjs and SQLCipher | A CRDT written here |
 | UI | `@material/material-color-utilities` | A second design system |
 | Booking `BO` | No maintained open marketplace matches a profile, a rate, and a date request | Team@Once and Mercur. They are staffing or product commerce, not this listing |
@@ -86,11 +86,11 @@ Optional facts another package might have written are read from the hub only aft
 
 PKM stays in a dedicated Anytype workspace. It is not a package here, and Open Axiom is cut. The shell hub is the store for installed packages. Other people are not required to run Anytype.
 
-The same package can be installed in Central, in the SubTerra Central PWA, or in both. Each shell has its own hub. Installing it in one shell does not install it in the other.
+The same package can be installed in Central, in the Metro PWA, or in both. Each shell has its own hub. Installing it in one shell does not install it in the other.
 
-A person who uses both shells may turn on a data bridge. It is off by default. The bridge copies only Open Books, Open Bill, and Open Day records that the person marks. Mail, banking, and home automation stay on Central. Central's public pages never receive the unbridged Central hub.
+A person who uses both shells may turn on a data bridge. It is off by default. The bridge copies only Open Books, Open Bill, Open Time, and Anytype records that the person marks. Mail, banking, and home automation stay on Central. Metro's public pages never receive the unbridged Central hub.
 
-## SubTerra Central access
+## Metro access
 
 A tag opens an event page after NTAG424 challenge-response. A UID alone does not sign anyone in.
 
@@ -100,32 +100,32 @@ A one-time charge upgrades that profile to Artist, Venue, or Vendor. The charge 
 
 Booking listings are free for a single freelancer. A crew manager with 5 or more members pays the booking fee. The fee is for managing that crew, not for looking for work alone.
 
-| Package | Central (personal and white-label) | SubTerra Central (public events) | Sells as |
+| Package | Central (local Tauri; hosts tools) | Metro (public PWA; social and ticketing) | Sells as |
 |---------|--------------------------------------|----------------------------------|----------|
 | Open Books `OB` | Yes | Only through the owner's bridge | Back-office seat. Bridge is optional |
-| Open Bill `BI` | Yes | Only through the owner's bridge | Back-office seat. Bridge is optional |
-| Open Day `OD` | Yes. Personal tasks, plus Festy crew drafting | Public schedule only, when granted | Seat. Drafting stays on Central |
+| Open Bill `OL` | Yes | Only through the owner's bridge | Back-office seat. Bridge is optional |
+| Open Time `OT` | Yes. Personal tasks, plus Festy crew drafting | Public schedule only, when granted | Seat. Drafting stays on Central |
 | Open Sort `OS` | Yes | No | Back-office seat |
-| Banking `BS` | Yes | No | Back-office seat |
+| Banking `BK` | Yes | No | Back-office seat |
 | Home Assistant `HA` | Yes | No | Back-office seat |
-| Media `MA` | Yes | No | Show-control seat |
-| Luna `LU` | Yes | No | Seat. Tools exist only for packages that are installed |
+| Media `MD` | Yes | No | Show-control seat |
+| Pepper `PR` | Yes | No | Seat on Central. Tools exist only for packages that are installed. Former code `LU` |
 | Subtoken `TK` | Organizer tools | Event page, tickets, show log, digital goods | Ticket price. Anonymous tag access. One-time profile upgrade is separate |
 | Open Gig `OG` | Yes | Yes | Free for a solo freelancer. Fee for a crew manager of 5 or more |
-| Community `CH` | Crew discussion | Public discussion | Free under the BSL grant. Commercial key past 5 seats |
+| Community `CM` | Crew discussion | Public discussion | Free under the BSL grant. Commercial key past 5 seats |
 | Forum `FM` | Optional richer discussion | Optional richer discussion | Same grant. Community still runs without it |
 
 UI is not a marketplace item. It ships inside both shells.
 
-Monetization is the BSL seat key and PoweredUpLabs hosting for Central, ticket prices on SubTerra Central, a one-time Artist, Venue, or Vendor profile upgrade, and the Open Gig fee for crew managers of 5 or more. A solo freelancer does not pay that fee. A package that is not installed is not billed and is not loaded.
+Monetization is the BSL seat key and PoweredUpLabs hosting for Central, ticket prices on Metro, a one-time Artist, Venue, or Vendor profile upgrade, and the Open Gig fee for crew managers of 5 or more. A solo freelancer does not pay that fee. A package that is not installed is not billed and is not loaded.
 
 ## Phases
 
 1. Workspace skeleton matching this layout, strict TypeScript, ESLint 9 flat config, pnpm workspace, Turborepo.
-2. Shell hub on SQLite (`better-sqlite3` in Tauri, SQL.js or WASM on the web) and Yjs. `budget` around `@actual-app/api`. `billbot` stays a separate invoicing package. `anytype` is an optional mirror of the hub, not the store packages require.
-3. `luna` with the provider interface and a tool registry for budget, blocks, and media. Default the local provider at the Omarchy host.
+2. Shell hub on SQLite (`better-sqlite3` in Tauri, SQL.js or WASM on the web) and Yjs. `packages/open-books` around `@actual-app/api`. `packages/open-bill` stays a separate invoicing package. Anytype is a Central-hosted integration. The owner-marked bridge allowlist is Open Books, Open Bill, Open Time, and Anytype.
+3. `packages/pepper` with the provider interface and a tool registry for Open Books, Open Time, and Media. Default the local provider at the Omarchy host.
 4. `packages/open-ui` Material 3 tokens and domain widgets: schedule kanban, receipt inspector, invoice preview, topic voting.
-5. Bundle `subterra-metro` in Tauri, including the Arch Linux / Omarchy target, and `subterra-central` as the PWA. Confirm an unlinked Central hub cannot read SubTerra Central data. Confirm a linked bridge copies only Open Books, Open Bill, and Open Day records the owner marked.
+5. Bundle `apps/central` in Tauri, including the Arch Linux / Omarchy target, and `apps/metro` as the PWA. Confirm an unlinked Central hub cannot read Metro data. Confirm a linked bridge copies only Open Books, Open Bill, Open Time, and Anytype records the owner marked.
 6. Playwright suites listed under CI.
 
 ## Festy Blocks
@@ -134,8 +134,8 @@ Monetization is the BSL seat key and PoweredUpLabs hosting for Central, ticket p
 
 | Screen | Home |
 |--------|------|
-| Team setup, lobby, shift wishlist, conflict resolver, draft board, coverage, time clock | Open Day (`OD`), inside Central |
-| The finished schedule | SubTerra Central, read-only, and only when the owner grants it |
+| Team setup, lobby, shift wishlist, conflict resolver, draft board, coverage, time clock | Open Time (`OT`), inside Central |
+| The finished schedule | Metro, read-only, and only when the owner grants it |
 
 Wishlists and the draft are crew-private. They do not appear on the public event page. Booking (`BO`) is still a hire for a date, not this draft.
 
@@ -147,7 +147,7 @@ These files were searched before building. Vendor roadmaps inside `actual/` stay
 |------|------------|---------|
 | `subterra-shell` roadmap, August 2026 | Marketplace of optional packages | Electron and Next shells, `apps/nexus`, separate Apps and Integrations tabs, code `ST` as the thing to build |
 | `blocks` roadmap | Kanban, timeline, quick-add, and task fields are the Blocks (`BK`) screen spec | Windows-desktop-first order. Central Tauri is the shell for every platform |
-| `blocks/Docs/Integrations/HERMES_ECOSYSTEM_ARCHITECTURE.md` | A local agent with tools for Blocks, Billbot, Mailbot, and Anytype | Separate repos and MCP as the architecture. The agent is `packages/luna`. Packages do not import each other |
+| `blocks/Docs/Integrations/HERMES_ECOSYSTEM_ARCHITECTURE.md` | A local agent with tools for Blocks, Billbot, Mailbot, and Anytype | Separate repos and MCP as the architecture. The agent is `packages/pepper`. Packages do not import each other |
 | `mailbot/cursor_gmail_api_auto_sorting_bot_strat.md` | A later Mailbot slice can pull a bill PDF and hand line items to Billbot if both are installed | Google Sheets as the system of record. The chat export is not a spec |
 | GV-0001, GV-0002 | Dewey codes, audience, NFC challenge-response, vendor `upstream` remotes | Admin/Nexus folder layout, Electron shell, polyrepo as the product shape |
 

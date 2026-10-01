@@ -19,7 +19,7 @@
     "@central/media": "workspace:*",
     "@central/open-bill": "workspace:*",
     "@central/open-books": "workspace:*",
-    "@central/open-day": "workspace:*",
+    "@central/open-time": "workspace:*",
     "@central/open-gig": "workspace:*",
     "@central/open-sort": "workspace:*",
     "@central/open-ui": "workspace:*",

@@ -14,11 +14,11 @@ const local: readonly ShellId[] = ["central"];
 
 export const catalog: readonly CatalogEntry[] = [
   {
-    code: "OD",
-    name: "Open Day",
+    code: "OT",
+    name: "Open Time",
     summary: "Tasks, Quick Blocks, crew draft, coverage, and the time clock.",
     shells: both,
-    load: () => import("@central/open-day").then((mod) => mod.OpenDayPanel),
+    load: () => import("@central/open-time").then((mod) => mod.OpenTimePanel),
   },
   {
     code: "OS",
@@ -35,7 +35,7 @@ export const catalog: readonly CatalogEntry[] = [
     load: () => import("@central/open-books").then((mod) => mod.OpenBooksPanel),
   },
   {
-    code: "BI",
+    code: "OL",
     name: "Open Bill",
     summary: "Invoices and 1099 notes, separate from the ledger.",
     shells: both,
@@ -63,7 +63,7 @@ export const catalog: readonly CatalogEntry[] = [
     load: () => import("@central/open-gig").then((mod) => mod.OpenGigPanel),
   },
   {
-    code: "CH",
+    code: "CM",
     name: "Community",
     summary: "Crew or public notes. Forum is not required.",
     shells: both,
@@ -84,14 +84,14 @@ export const catalog: readonly CatalogEntry[] = [
     load: () => import("@central/home-assistant").then((mod) => mod.HomeAssistantPanel),
   },
   {
-    code: "MA",
+    code: "MD",
     name: "Media",
     summary: "Show cues for OBS, DaVinci, and Loupedeck.",
     shells: local,
     load: () => import("@central/media").then((mod) => mod.MediaPanel),
   },
   {
-    code: "BS",
+    code: "BK",
     name: "Banking",
     summary: "SimpleFIN or GoCardless labels. Credentials stay on this machine.",
     shells: local,
