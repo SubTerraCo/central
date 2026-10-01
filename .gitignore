@@ -4,3 +4,4 @@ target
 .turbo
 *.log
 .DS_Store
+.env
