@@ -25,7 +25,7 @@ Central monorepo. Two shells share one marketplace. Packages do not import each 
 
 Open Day carries the Blocks columns and the Festy Blocks crew draft, coverage check, and time clock. A published schedule is read-only. Open Sort follows the Mailbot rule shape and never deletes mail. Open Gig is free for a solo freelancer and bills a crew manager of 5 or more. Subtoken refuses a tag UID that has no SUN response.
 
-The blueprint is [ARCHITECTURE.md](./ARCHITECTURE.md). Governance lives in `SubTerraCo/subterra-governance`. New code in this repo is BSL 1.1. See [LICENSE.md](./LICENSE.md).
+The blueprint is [ARCHITECTURE.md](./ARCHITECTURE.md). Governance lives in `SubTerraCo/grounded-rules`. New code in this repo is BSL 1.1. See [LICENSE.md](./LICENSE.md).
 
 ## Run
 
