@@ -1,26 +1,27 @@
-# Luna
+# Central
 
-SubTerra Metro monorepo. Two shells share one marketplace. Packages do not import each other.
+Central monorepo. Two shells share one marketplace. Packages do not import each other.
 
-- `apps/subterra-metro` is the Tauri shell for this machine (Windows, macOS, Android, iOS, and an Arch AppImage for Omarchy). Dewey code `SM`.
-- `apps/web-shell` is SubTerra Central, the gig and event hub.
+- `apps/central` is the local Tauri app (Windows, macOS, Android, iOS, and an Arch AppImage for Omarchy). Dewey code `CT`.
+- `apps/metro` is the public PWA for social and ticketing. Dewey code `MT`.
+- Pepper (`packages/pepper`, `PR`) is the agent router. Hermes is the runtime. Pepper installs on Central.
 - `packages/host` is the only place that composes packages.
 - `packages/hub` stores records. The finance and time bridge is off until you turn it on. It copies Open Books, Open Bill, and Open Day.
 
 | Code | Package | Where it installs |
 | --- | --- | --- |
 | OD | Open Day | Both shells |
-| OS | Open Sort | SubTerra Metro |
+| OS | Open Sort | Central |
 | OB | Open Books | Both shells |
 | BI | Open Bill | Both shells |
-| LU | Luna | SubTerra Metro |
+| PR | Pepper | Central |
 | TK | Subtoken | Both shells |
 | OG | Open Gig | Both shells |
 | CH | Community | Both shells |
 | FM | Forum | Both shells |
-| HA | Home Assistant | SubTerra Metro |
-| MA | Media | SubTerra Metro |
-| BS | Banking | SubTerra Metro |
+| HA | Home Assistant | Central |
+| MA | Media | Central |
+| BS | Banking | Central |
 
 Open Day carries the Blocks columns and the Festy Blocks crew draft, coverage check, and time clock. A published schedule is read-only. Open Sort follows the Mailbot rule shape and never deletes mail. Open Gig is free for a solo freelancer and bills a crew manager of 5 or more. Subtoken refuses a tag UID that has no SUN response.
 
@@ -33,7 +34,7 @@ pnpm install
 pnpm dev
 ```
 
-SubTerra Metro is at http://localhost:1420. SubTerra Central is:
+Central is at http://localhost:1420. Metro is:
 
 ```bash
 pnpm dev:web
@@ -46,7 +47,7 @@ Each dev server keeps its own browser storage. The bridge shares Open Books, Ope
 The Tauri window, after the frontend is running:
 
 ```bash
-pnpm --filter @luna/os tauri dev
+pnpm --filter @central/central tauri dev
 ```
 
 Arch Linux builds target an AppImage for Omarchy. That packaging step comes after this first window.

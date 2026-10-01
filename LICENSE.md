@@ -2,7 +2,7 @@
 
 Licensor: SubTerra Collective, LLC
 
-Licensed Work: Luna, the SubTerra Metro monorepo in this repository.
+Licensed Work: Luna, the Central monorepo in this repository.
 
 Additional Use Grant: You may make production use of the Licensed Work, without a commercial key, if you are a solo operator, an artist, a contributor, a nonprofit, or a business with fewer than 5 concurrent seats and under $100,000 annual gross revenue.
 

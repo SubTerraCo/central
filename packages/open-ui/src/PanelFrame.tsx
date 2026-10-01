@@ -12,24 +12,24 @@ export function PanelFrame({
 }) {
   return (
     <section
-      className="luna-panel"
+      className="central-panel"
       style={{ display: "grid", gap: spacePx(3), maxWidth: wide ? "72rem" : "40rem" }}
     >
       <style>{`
-        .luna-panel form {
+        .central-panel form {
           display: flex;
           flex-wrap: wrap;
           gap: ${spacePx(2)} ${spacePx(3)};
           align-items: end;
         }
-        .luna-panel label {
+        .central-panel label {
           display: grid;
           gap: ${spacePx(1)};
           justify-items: start;
         }
-        .luna-panel input,
-        .luna-panel select,
-        .luna-panel button {
+        .central-panel input,
+        .central-panel select,
+        .central-panel button {
           font: inherit;
         }
       `}</style>

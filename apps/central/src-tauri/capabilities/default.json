@@ -1,6 +1,6 @@
 {
   "identifier": "default",
-  "description": "Default SubTerra Metro window",
+  "description": "Default Central window",
   "windows": ["main"],
   "permissions": ["core:default"]
 }

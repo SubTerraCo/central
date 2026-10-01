@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "SubTerra Metro",
+  "productName": "Central",
   "version": "0.1.0",
-  "identifier": "co.subterra.luna",
+  "identifier": "co.subterra.central",
   "build": {
     "beforeDevCommand": "pnpm dev",
     "devUrl": "http://localhost:1420",
@@ -12,7 +12,7 @@
   "app": {
     "windows": [
       {
-        "title": "SubTerra Metro",
+        "title": "Central",
         "width": 1200,
         "height": 800
       }

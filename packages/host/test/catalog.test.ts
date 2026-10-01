@@ -5,18 +5,18 @@ describe("catalog", () => {
   it("gives every package one code", () => {
     const codes = catalog.map((entry) => entry.code);
     expect(new Set(codes).size).toBe(codes.length);
-    expect(codes).toEqual(["OD", "OS", "OB", "BI", "LU", "TK", "OG", "CH", "FM", "HA", "MA", "BS"]);
+    expect(codes).toEqual(["OD", "OS", "OB", "BI", "PR", "TK", "OG", "CH", "FM", "HA", "MA", "BS"]);
   });
 
   it("keeps mail, banking, and the local agent off the public shell", () => {
-    const web = catalogFor("web-shell").map((entry) => entry.code);
+    const web = catalogFor("metro").map((entry) => entry.code);
     expect(web).toEqual(["OD", "OB", "BI", "TK", "OG", "CH", "FM"]);
   });
 
-  it("offers the local packages on SubTerra Metro", () => {
-    const local = catalogFor("luna-os").map((entry) => entry.code);
+  it("offers the local packages on Central", () => {
+    const local = catalogFor("central").map((entry) => entry.code);
     expect(local).toContain("OS");
-    expect(local).toContain("LU");
+    expect(local).toContain("PR");
     expect(local).toContain("HA");
     expect(local).toContain("OG");
   });

@@ -1,5 +1,5 @@
 {
-  "name": "@luna/open-gig",
+  "name": "@central/open-gig",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -10,8 +10,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@luna/hub": "workspace:*",
-    "@luna/open-ui": "workspace:*"
+    "@central/hub": "workspace:*",
+    "@central/open-ui": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^19.1.8",

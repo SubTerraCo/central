@@ -20,5 +20,5 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
       - run: pnpm test
-      - run: pnpm --filter @luna/os build
-      - run: pnpm --filter @luna/web-shell build
+      - run: pnpm --filter @central/central build
+      - run: pnpm --filter @central/metro build

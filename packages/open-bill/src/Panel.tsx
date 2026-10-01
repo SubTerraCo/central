@@ -1,6 +1,6 @@
 import { useState } from "react";
-import type { PackagePanelProps } from "@luna/hub";
-import { PanelFrame, useDomain } from "@luna/open-ui";
+import type { PackagePanelProps } from "@central/hub";
+import { PanelFrame, useDomain } from "@central/open-ui";
 import { invoiceTotalCents, needs1099, type InvoiceDraft } from "./invoice";
 import { formatCents, parseAmountToCents } from "./money";
 

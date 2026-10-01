@@ -1,4 +1,4 @@
-export type ShellId = "luna-os" | "web-shell";
+export type ShellId = "central" | "metro";
 
 export type InstalledPackage = {
   code: string;
@@ -12,7 +12,7 @@ export type PackagePanelProps = {
 
 export const BRIDGED_DOMAINS = ["books", "bill", "day"] as const;
 
-const PREFIX = "luna.";
+const PREFIX = "central.";
 const bridged = new Set<string>(BRIDGED_DOMAINS);
 
 const memory = new Map<string, string>();
@@ -68,8 +68,8 @@ function mergeDomain(domain: string): void {
   const sharedKey = `${PREFIX}shared.${domain}`;
   if (getItem(sharedKey)) return;
   const rows = [
-    ...parseArray(getItem(`${PREFIX}luna-os.${domain}`)),
-    ...parseArray(getItem(`${PREFIX}web-shell.${domain}`)),
+    ...parseArray(getItem(`${PREFIX}central.${domain}`)),
+    ...parseArray(getItem(`${PREFIX}metro.${domain}`)),
   ];
   if (rows.length === 0) return;
   const seen = new Set<string>();

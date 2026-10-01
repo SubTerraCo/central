@@ -1,6 +1,6 @@
-# @luna/open-ui
+# @central/open-ui
 
-Material 3 tokens for SubTerra Metro and SubTerra Central.
+Material 3 tokens for Central and SubTerra Central.
 
 ## Powerline palette
 

@@ -1,11 +1,11 @@
 [package]
-name = "luna-os"
+name = "central"
 version = "0.1.0"
 edition = "2021"
-description = "SubTerra Metro desktop and mobile shell"
+description = "Central desktop and mobile shell"
 
 [lib]
-name = "luna_os_lib"
+name = "central_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]

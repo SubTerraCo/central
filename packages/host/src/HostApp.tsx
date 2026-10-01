@@ -7,16 +7,16 @@ import {
   uninstall,
   type InstalledPackage,
   type ShellId,
-} from "@luna/hub";
-import { LunaShell, spacePx, tokens, typeStyle } from "@luna/open-ui";
+} from "@central/hub";
+import { CentralShell, spacePx, tokens, typeStyle } from "@central/open-ui";
 import { catalogFor, type CatalogEntry } from "./catalog";
 
 function productTitle(shellId: ShellId): string {
   switch (shellId) {
-    case "luna-os":
-      return "SubTerra Metro";
-    case "web-shell":
-      return "SubTerra Central";
+    case "central":
+      return "Central";
+    case "metro":
+      return "Metro";
     default: {
       const unreachable: never = shellId;
       return unreachable;
@@ -26,18 +26,18 @@ function productTitle(shellId: ShellId): string {
 
 function introFor(shellId: ShellId): ReactNode {
   switch (shellId) {
-    case "luna-os":
+    case "central":
       return (
         <>
-          <p>SubTerra Metro is the local shell. Install only the packages you want. An uninstalled package is not loaded.</p>
-          <p>Omarchy can host Ollama. Gemma 4 12B is the local model when Luna is installed.</p>
+          <p>Central is the local shell. Install only the packages you want. An uninstalled package is not loaded.</p>
+          <p>Omarchy can host Ollama. Gemma 4 12B is the local model when Pepper is installed.</p>
         </>
       );
-    case "web-shell":
+    case "metro":
       return (
         <>
           <p>
-            SubTerra Central is the gig and event hub. A tag opens an event page after a SUN response. The UID is
+            Metro is the public app for social and ticketing. A tag opens an event page after a SUN response. The UID is
             not a login.
           </p>
           <p>
@@ -97,7 +97,7 @@ export function HostApp({ shellId }: { shellId: ShellId }) {
   }, [bridgeOn, installedCodes, offered, shellId]);
 
   return (
-    <LunaShell
+    <CentralShell
       productTitle={productTitle(shellId)}
       intro={introFor(shellId)}
       section={visibleSection}
