@@ -1,16 +1,16 @@
 {
-  "name": "luna",
+  "name": "central",
   "private": true,
   "version": "0.1.0",
-  "description": "SubTerra Metro monorepo. Standalone packages inside two shells.",
-  "packageManager": "pnpm@9.15.9",
+  "description": "Central monorepo. Standalone packages inside two shells.",
+  "packageManager": "pnpm@11.14.0",
   "engines": {
     "node": ">=22"
   },
   "scripts": {
-    "dev": "pnpm --filter @luna/os dev",
-    "dev:web": "pnpm --filter @luna/web-shell dev",
-    "build": "pnpm --filter @luna/os build && pnpm --filter @luna/web-shell build",
+    "dev": "pnpm --filter @central/central dev",
+    "dev:web": "pnpm --filter @central/metro dev",
+    "build": "pnpm --filter @central/central build && pnpm --filter @central/metro build",
     "typecheck": "pnpm -r --if-present typecheck",
     "test": "vitest run"
   },

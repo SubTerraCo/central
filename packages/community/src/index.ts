@@ -1,6 +1,6 @@
 export { CommunityPanel } from "./Panel";
 export const communityMeta = {
-  code: "CH",
+  code: "CM",
   name: "Community",
   summary: "Crew or public discussion. Forum is not required.",
 } as const;

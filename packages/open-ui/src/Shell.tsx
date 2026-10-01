@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
-import type { InstalledPackage } from "@luna/hub";
+import type { InstalledPackage } from "@central/hub";
 import { spacePx, tokens, typeStyle } from "./tokens";
 
-export type LunaShellProps = {
+export type CentralShellProps = {
   productTitle: string;
   intro: ReactNode;
   section: string;
@@ -14,7 +14,7 @@ export type LunaShellProps = {
   onBridge: (on: boolean) => void;
 };
 
-export function LunaShell({
+export function CentralShell({
   productTitle,
   intro,
   section,
@@ -24,7 +24,7 @@ export function LunaShell({
   marketplace,
   onSection,
   onBridge,
-}: LunaShellProps) {
+}: CentralShellProps) {
   return (
     <div
       style={{
@@ -102,7 +102,7 @@ function Home({
       </label>
       <p style={{ ...typeStyle("bodyMedium"), color: tokens.onSurfaceVariant }}>
         {bridgeOn
-          ? "Open Books, Open Bill, and Open Day are shared. Everything else stays on this shell."
+          ? "Open Books, Open Bill, Open Time, and Anytype are shared. Everything else stays on this shell."
           : "The bridge is off. This shell keeps its own records."}
       </p>
     </section>

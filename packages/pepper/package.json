@@ -1,0 +1,10 @@
+{
+  "name": "@central/pepper",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "scripts": { "typecheck": "tsc -p tsconfig.json --noEmit" },
+  "dependencies": { "@central/hub": "workspace:*", "@central/open-ui": "workspace:*" },
+  "devDependencies": { "@types/react": "^19.1.8", "react": "^19.1.1", "typescript": "^5.9.2" }
+}

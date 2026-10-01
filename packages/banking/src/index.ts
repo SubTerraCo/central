@@ -1,6 +1,6 @@
 export { BankingPanel } from "./Panel";
 export const bankingMeta = {
-  code: "BS",
+  code: "BK",
   name: "Banking",
   summary: "SimpleFIN or GoCardless. Credentials stay on this machine.",
 } as const;

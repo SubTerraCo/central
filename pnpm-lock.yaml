@@ -12,9 +12,9 @@ importers:
         specifier: ^3.2.4
         version: 3.2.7
 
-  apps/subterra-metro:
+  apps/central:
     dependencies:
-      '@luna/host':
+      '@central/host':
         specifier: workspace:*
         version: link:../../packages/host
       react:
@@ -43,9 +43,9 @@ importers:
         specifier: ^7.1.3
         version: 7.3.6
 
-  apps/web-shell:
+  apps/metro:
     dependencies:
-      '@luna/host':
+      '@central/host':
         specifier: workspace:*
         version: link:../../packages/host
       react:
@@ -73,10 +73,10 @@ importers:
 
   packages/banking:
     dependencies:
-      '@luna/hub':
+      '@central/hub':
         specifier: workspace:*
         version: link:../hub
-      '@luna/open-ui':
+      '@central/open-ui':
         specifier: workspace:*
         version: link:../open-ui
     devDependencies:
@@ -92,10 +92,10 @@ importers:
 
   packages/community:
     dependencies:
-      '@luna/hub':
+      '@central/hub':
         specifier: workspace:*
         version: link:../hub
-      '@luna/open-ui':
+      '@central/open-ui':
         specifier: workspace:*
         version: link:../open-ui
     devDependencies:
@@ -111,10 +111,10 @@ importers:
 
   packages/forum:
     dependencies:
-      '@luna/hub':
+      '@central/hub':
         specifier: workspace:*
         version: link:../hub
-      '@luna/open-ui':
+      '@central/open-ui':
         specifier: workspace:*
         version: link:../open-ui
     devDependencies:
@@ -130,10 +130,10 @@ importers:
 
   packages/home-assistant:
     dependencies:
-      '@luna/hub':
+      '@central/hub':
         specifier: workspace:*
         version: link:../hub
-      '@luna/open-ui':
+      '@central/open-ui':
         specifier: workspace:*
         version: link:../open-ui
     devDependencies:
@@ -149,46 +149,46 @@ importers:
 
   packages/host:
     dependencies:
-      '@luna/agent':
-        specifier: workspace:*
-        version: link:../luna
-      '@luna/banking':
+      '@central/banking':
         specifier: workspace:*
         version: link:../banking
-      '@luna/community':
+      '@central/community':
         specifier: workspace:*
         version: link:../community
-      '@luna/forum':
+      '@central/forum':
         specifier: workspace:*
         version: link:../forum
-      '@luna/home-assistant':
+      '@central/home-assistant':
         specifier: workspace:*
         version: link:../home-assistant
-      '@luna/hub':
+      '@central/hub':
         specifier: workspace:*
         version: link:../hub
-      '@luna/media':
+      '@central/media':
         specifier: workspace:*
         version: link:../media
-      '@luna/open-bill':
+      '@central/open-bill':
         specifier: workspace:*
         version: link:../open-bill
-      '@luna/open-books':
+      '@central/open-books':
         specifier: workspace:*
         version: link:../open-books
-      '@luna/open-day':
+      '@central/open-day':
         specifier: workspace:*
         version: link:../open-day
-      '@luna/open-gig':
+      '@central/open-gig':
         specifier: workspace:*
         version: link:../open-gig
-      '@luna/open-sort':
+      '@central/open-sort':
         specifier: workspace:*
         version: link:../open-sort
-      '@luna/open-ui':
+      '@central/open-ui':
         specifier: workspace:*
         version: link:../open-ui
-      '@luna/subtoken':
+      '@central/pepper':
+        specifier: workspace:*
+        version: link:../pepper
+      '@central/subtoken':
         specifier: workspace:*
         version: link:../subtoken
     devDependencies:
@@ -214,31 +214,12 @@ importers:
         specifier: ^5.9.2
         version: 5.9.3
 
-  packages/luna:
-    dependencies:
-      '@luna/hub':
-        specifier: workspace:*
-        version: link:../hub
-      '@luna/open-ui':
-        specifier: workspace:*
-        version: link:../open-ui
-    devDependencies:
-      '@types/react':
-        specifier: ^19.1.8
-        version: 19.3.0
-      react:
-        specifier: ^19.1.1
-        version: 19.3.0
-      typescript:
-        specifier: ^5.9.2
-        version: 5.9.3
-
   packages/media:
     dependencies:
-      '@luna/hub':
+      '@central/hub':
         specifier: workspace:*
         version: link:../hub
-      '@luna/open-ui':
+      '@central/open-ui':
         specifier: workspace:*
         version: link:../open-ui
     devDependencies:
@@ -254,10 +235,10 @@ importers:
 
   packages/open-bill:
     dependencies:
-      '@luna/hub':
+      '@central/hub':
         specifier: workspace:*
         version: link:../hub
-      '@luna/open-ui':
+      '@central/open-ui':
         specifier: workspace:*
         version: link:../open-ui
     devDependencies:
@@ -273,10 +254,10 @@ importers:
 
   packages/open-books:
     dependencies:
-      '@luna/hub':
+      '@central/hub':
         specifier: workspace:*
         version: link:../hub
-      '@luna/open-ui':
+      '@central/open-ui':
         specifier: workspace:*
         version: link:../open-ui
     devDependencies:
@@ -292,10 +273,10 @@ importers:
 
   packages/open-day:
     dependencies:
-      '@luna/hub':
+      '@central/hub':
         specifier: workspace:*
         version: link:../hub
-      '@luna/open-ui':
+      '@central/open-ui':
         specifier: workspace:*
         version: link:../open-ui
     devDependencies:
@@ -311,10 +292,10 @@ importers:
 
   packages/open-gig:
     dependencies:
-      '@luna/hub':
+      '@central/hub':
         specifier: workspace:*
         version: link:../hub
-      '@luna/open-ui':
+      '@central/open-ui':
         specifier: workspace:*
         version: link:../open-ui
     devDependencies:
@@ -330,10 +311,10 @@ importers:
 
   packages/open-sort:
     dependencies:
-      '@luna/hub':
+      '@central/hub':
         specifier: workspace:*
         version: link:../hub
-      '@luna/open-ui':
+      '@central/open-ui':
         specifier: workspace:*
         version: link:../open-ui
     devDependencies:
@@ -349,7 +330,7 @@ importers:
 
   packages/open-ui:
     dependencies:
-      '@luna/hub':
+      '@central/hub':
         specifier: workspace:*
         version: link:../hub
       '@material/material-color-utilities':
@@ -372,12 +353,31 @@ importers:
         specifier: ^5.9.2
         version: 5.9.3
 
-  packages/subtoken:
+  packages/pepper:
     dependencies:
-      '@luna/hub':
+      '@central/hub':
         specifier: workspace:*
         version: link:../hub
-      '@luna/open-ui':
+      '@central/open-ui':
+        specifier: workspace:*
+        version: link:../open-ui
+    devDependencies:
+      '@types/react':
+        specifier: ^19.1.8
+        version: 19.3.0
+      react:
+        specifier: ^19.1.1
+        version: 19.3.0
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.3
+
+  packages/subtoken:
+    dependencies:
+      '@central/hub':
+        specifier: workspace:*
+        version: link:../hub
+      '@central/open-ui':
         specifier: workspace:*
         version: link:../open-ui
     devDependencies:

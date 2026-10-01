@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { readRecords, writeRecords, type ShellId } from "@luna/hub";
-import { PanelFrame, tokens } from "@luna/open-ui";
+import { readRecords, writeRecords, type ShellId } from "@central/hub";
+import { PanelFrame, tokens } from "@central/open-ui";
 import { gigFeeApplies, type GigRole } from "./fee";
 
 type Listing = {

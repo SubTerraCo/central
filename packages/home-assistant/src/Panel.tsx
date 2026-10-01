@@ -1,6 +1,6 @@
 import { useState } from "react";
-import type { ShellId } from "@luna/hub";
-import { PanelFrame, useDomain } from "@luna/open-ui";
+import type { ShellId } from "@central/hub";
+import { PanelFrame, useDomain } from "@central/open-ui";
 
 type Link = { id: string; url: string };
 
