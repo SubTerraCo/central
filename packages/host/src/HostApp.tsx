@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useState, type ComponentType, type ReactNode } from "react";
 import {
   bridgeEnabled,
   install,
@@ -8,8 +8,23 @@ import {
   type InstalledPackage,
   type ShellId,
 } from "@central/hub";
-import { CentralShell, spacePx, tokens, typeStyle } from "@central/open-ui";
+import { CentralShell, spacePx, tokens, typeStyle, type CentralShellExtraNav } from "@central/open-ui";
 import { catalogFor, type CatalogEntry } from "./catalog";
+
+export type HostHomeProps = {
+  intro: ReactNode;
+  installed: readonly InstalledPackage[];
+  bridgeOn: boolean;
+  onBridge: (on: boolean) => void;
+};
+
+export type HostExtraNavItem = CentralShellExtraNav;
+
+export type HostAppProps = {
+  shellId: ShellId;
+  home?: ComponentType<HostHomeProps>;
+  extraNav?: readonly HostExtraNavItem[];
+};
 
 function productTitle(shellId: ShellId): string {
   switch (shellId) {
@@ -57,7 +72,7 @@ function introFor(shellId: ShellId): ReactNode {
   }
 }
 
-export function HostApp({ shellId }: { shellId: ShellId }) {
+export function HostApp({ shellId, home: HomeSlot, extraNav = [] }: HostAppProps) {
   const offered = useMemo(() => catalogFor(shellId), [shellId]);
   const [section, setSection] = useState("home");
   const [installedCodes, setInstalledCodes] = useState(() => listInstalled(shellId));
@@ -69,10 +84,19 @@ export function HostApp({ shellId }: { shellId: ShellId }) {
     return entry ? [{ code: entry.code, name: entry.name }] : [];
   });
 
+  const extraIds = extraNav.map((item) => item.id);
   const visibleSection =
-    section === "home" || section === "marketplace" || installed.some((item) => item.code === section)
+    section === "home" ||
+    section === "marketplace" ||
+    extraIds.includes(section) ||
+    installed.some((item) => item.code === section)
       ? section
       : "home";
+
+  function handleBridge(on: boolean) {
+    setBridge(on);
+    setBridgeOn(on);
+  }
 
   useEffect(() => {
     let cancelled = false;
@@ -96,13 +120,20 @@ export function HostApp({ shellId }: { shellId: ShellId }) {
     };
   }, [bridgeOn, installedCodes, offered, shellId]);
 
+  const intro = introFor(shellId);
+  const home = HomeSlot ? (
+    <HomeSlot intro={intro} installed={installed} bridgeOn={bridgeOn} onBridge={handleBridge} />
+  ) : undefined;
+
   return (
     <CentralShell
       productTitle={productTitle(shellId)}
-      intro={introFor(shellId)}
+      intro={intro}
       section={visibleSection}
       installed={installed}
       panels={panels}
+      extraNav={extraNav}
+      home={home}
       bridgeOn={bridgeOn}
       marketplace={
         <Marketplace
@@ -121,10 +152,7 @@ export function HostApp({ shellId }: { shellId: ShellId }) {
         />
       }
       onSection={setSection}
-      onBridge={(on) => {
-        setBridge(on);
-        setBridgeOn(on);
-      }}
+      onBridge={handleBridge}
     />
   );
 }

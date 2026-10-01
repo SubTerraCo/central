@@ -1,14 +1,14 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { HostApp } from "@central/host";
+import { MetroApp } from "./MetroApp";
 
 const root = document.getElementById("root");
 if (root === null) {
-  throw new Error("SubTerra Central root is missing");
+  throw new Error("Metro root is missing");
 }
 
 createRoot(root).render(
   <StrictMode>
-    <HostApp shellId="metro" />
+    <MetroApp />
   </StrictMode>,
 );

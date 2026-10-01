@@ -2,12 +2,20 @@ import type { ReactNode } from "react";
 import type { InstalledPackage } from "@central/hub";
 import { spacePx, tokens, typeStyle } from "./tokens";
 
+export type CentralShellExtraNav = {
+  id: string;
+  label: string;
+  panel: ReactNode;
+};
+
 export type CentralShellProps = {
   productTitle: string;
   intro: ReactNode;
   section: string;
   installed: readonly InstalledPackage[];
   panels: Readonly<Record<string, ReactNode>>;
+  extraNav?: readonly CentralShellExtraNav[];
+  home?: ReactNode;
   bridgeOn: boolean;
   marketplace: ReactNode;
   onSection: (section: string) => void;
@@ -20,11 +28,17 @@ export function CentralShell({
   section,
   installed,
   panels,
+  extraNav = [],
+  home,
   bridgeOn,
   marketplace,
   onSection,
   onBridge,
 }: CentralShellProps) {
+  const extraPanel = extraNav.find((item) => item.id === section)?.panel;
+  const reserved =
+    section === "home" || section === "marketplace" || extraPanel !== undefined;
+
   return (
     <div
       style={{
@@ -47,6 +61,14 @@ export function CentralShell({
       >
         <strong style={{ color: tokens.primary }}>{productTitle}</strong>
         <ShellTab label="Home" selected={section === "home"} onPress={() => onSection("home")} />
+        {extraNav.map((item) => (
+          <ShellTab
+            key={item.id}
+            label={item.label}
+            selected={section === item.id}
+            onPress={() => onSection(item.id)}
+          />
+        ))}
         <ShellTab
           label="Marketplace"
           selected={section === "marketplace"}
@@ -62,11 +84,14 @@ export function CentralShell({
         ))}
       </header>
       <main style={{ padding: spacePx(6) }}>
-        {section === "home" ? (
-          <Home intro={intro} installed={installed} bridgeOn={bridgeOn} onBridge={onBridge} />
-        ) : null}
+        {section === "home"
+          ? (home ?? (
+              <Home intro={intro} installed={installed} bridgeOn={bridgeOn} onBridge={onBridge} />
+            ))
+          : null}
         {section === "marketplace" ? marketplace : null}
-        {section !== "home" && section !== "marketplace" ? panels[section] ?? null : null}
+        {extraPanel ?? null}
+        {reserved ? null : (panels[section] ?? null)}
       </main>
     </div>
   );
